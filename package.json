@@ -1,0 +1,27 @@
+{
+  "name": "datatransfer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "mongod": "^2.0.0",
+    "mongodb": "^4.2.0",
+    "nodemon": "^2.0.15",
+    "pg": "^8.7.1",
+    "promise-queue": "^2.2.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThomasVandermeersch/DataTransfer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ThomasVandermeersch/DataTransfer/issues"
+  },
+  "homepage": "https://github.com/ThomasVandermeersch/DataTransfer#readme"
+}
