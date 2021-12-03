@@ -96,31 +96,43 @@ function insertAssetsandTypes(db,crate,teamIDs){
   db.collection("assets").find({ "team": { $in: teamIDs} }).toArray(function(err,result){
     if(err) throw err;
     result.forEach( async(asset) =>{
-      query = `INSERT INTO assets_Crate (id,team_id,type_id,name,createdBy_id,status,parent_id) VALUES ('${asset._id}','${asset.team}','${asset.type}','${asset.name}','${asset.createdBy}','${asset.status}','${asset.parent}')`
+      //query = `INSERT INTO assets_Crate (id,team_id,type_id,name,createdBy_id,status,parent_id) VALUES ('${asset._id}','${asset.team}','${asset.type}','${asset.name}','${asset.createdBy}','${asset.status}','${asset.parent}')`
       //await crate.query(query)
 
-      if(asset.devices){
-        asset.devices.forEach(async (deviceID) =>{
-          query = `INSERT INTO assetsdevices_Crate (asset_id, device_id) VALUES('${asset._id}','${deviceID}')`
-          crate.query(query)
-        })
-      }
+      // if(asset.devices){
+      //   asset.devices.forEach(async (deviceID) =>{
+      //     query = `INSERT INTO assetsdevices_Crate (asset_id, device_id) VALUES('${asset._id}','${deviceID}')`
+      //     crate.query(query)
+      //   })
+      // }
 
-      if(asset.smartdevices){
-        asset.smartdevices.forEach(async (smartdeviceID) =>{
-          query = `INSERT INTO assetssmartdevices_Crate (asset_id,smartdevice_id) VALUES ('${asset._id}','${smartdeviceID}')`
-          crate.query(query)
-        })
-      }
+      // if(asset.smartdevices){
+      //   asset.smartdevices.forEach(async (smartdeviceID) =>{
+      //     query = `INSERT INTO assetssmartdevices_Crate (asset_id,smartdevice_id) VALUES ('${asset._id}','${smartdeviceID}')`
+      //     crate.query(query)
+      //   })
+      // }
+
+
+      // INSERTION OF ASSETS TAGS
+      console.log(asset.name)
+      asset.tags.forEach(async (tag,index)=>{
+        if(tag.split(':')[0] == "assets"){
+          console.log('       ' + tag.split(':')[1])
+          query = `INSERT INTO assetstags_Crate (id,asset_id,asset_name,linkedasset_id) VALUES ('${asset._id+index}','${asset._id}','${asset.name}','${tag.split(':')[1]}')`
+          console.log('                 ' + query)
+          await crate.query(query)
+        }
+      })
 
     })
   })
 
-  db.collection("assettypes").find({ "team": { $in: teamIDs} }).toArray(function(err,result){
-    if(err) throw err;
-    result.forEach( async(assettype) =>{
-      query = `INSERT INTO assettypes_Crate (id,name,status,parent) VALUES ('${assettype._id}','${assettype.name}','${assettype.status}','${assettype.parent}')`
-      //await crate.query(query)
-    })
-  })
+  // db.collection("assettypes").find({ "team": { $in: teamIDs} }).toArray(function(err,result){
+  //   if(err) throw err;
+  //   result.forEach( async(assettype) =>{
+  //     query = `INSERT INTO assettypes_Crate (id,name,status,parent) VALUES ('${assettype._id}','${assettype.name}','${assettype.status}','${assettype.parent}')`
+  //     //await crate.query(query)
+  //   })
+  // })
 }
