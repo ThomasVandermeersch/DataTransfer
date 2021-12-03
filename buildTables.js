@@ -2,7 +2,7 @@ const {Client} = require('pg')
 fs = require('fs')
 
 async function createTables(client){
-    /*
+    
     // Teams :
         query = "Create TABLE teams_Crate (id varchar primary key, name varchar , createdAt timestamp, status varchar, solution varchar)"
         await client.query(query)
@@ -57,13 +57,12 @@ async function createTables(client){
         query = "Create TABLE assetssmartdevices_Crate (asset_id varchar, smartdevice_id varchar)"
         await client.query(query)
         console.log("AssetsSmartdevices created")
-    */
+    
     // Assetstags
-        // query = "Create TABLE assetstags_Crate (id varchar primary key, asset_id varchar, linkedasset_id varchar, asset_name varchar )"
-        // await client.query(query)
-        // console.log("Assetstags created")
+        query = "Create TABLE assetstags_Crate (id varchar primary key, asset_id varchar, linkedasset_id varchar, asset_name varchar )"
+        await client.query(query)
+        console.log("Assetstags created")
 }
-
 
 async function run(){
     const client = new Client({connectionString: 'postgresql://crate@localhost:5432/doc'})
